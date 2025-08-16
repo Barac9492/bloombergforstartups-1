@@ -1,0 +1,10 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "frontend/.next",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "env": {
+    "NEXT_PUBLIC_API_URL": "https://your-backend-url.herokuapp.com",
+    "NEXT_PUBLIC_WS_URL": "https://your-backend-url.herokuapp.com"
+  }
+}
