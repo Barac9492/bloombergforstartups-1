@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String?
+  role      String   @default("USER")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  deals     Deal[]
+  activities Activity[]
+}
+
+model Deal {
+  id          String      @id @default(cuid())
+  name        String
+  company     String
+  description String?
+  stage       String
+  value       Float?
+  probability Float       @default(0.5)
+  contact     String?
+  email       String?
+  website     String?
+  notes       String?
+  tags        String   @default("")
+  
+  userId      String
+  user        User        @relation(fields: [userId], references: [id])
+  
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  closedAt    DateTime?
+  
+  sentiments  Sentiment[]
+  activities  Activity[]
+  automations DealAutomation[]
+  
+  @@index([userId])
+  @@index([stage])
+}
+
+model Sentiment {
+  id         String      @id @default(cuid())
+  dealId     String
+  deal       Deal        @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  
+  source     String      // twitter, linkedin, github, etc.
+  content    String?
+  url        String?
+  score      Float       // -1 to 1
+  magnitude  Float       // 0 to infinity
+  category   String
+  
+  analyzedAt DateTime    @default(now())
+  createdAt  DateTime    @default(now())
+  
+  @@index([dealId])
+  @@index([source])
+  @@index([analyzedAt])
+}
+
+model Activity {
+  id        String   @id @default(cuid())
+  type      String   // email, call, meeting, note, etc.
+  content   String
+  
+  dealId    String
+  deal      Deal     @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  
+  createdAt DateTime @default(now())
+  
+  @@index([dealId])
+  @@index([userId])
+}
+
+model DealAutomation {
+  id          String   @id @default(cuid())
+  dealId      String
+  deal        Deal     @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  
+  trigger     String   // sentiment_drop, time_in_stage, etc.
+  condition   String   // Conditions configuration JSON string
+  action      String   // move_stage, send_notification, etc.
+  actionData  String   // Action configuration JSON string
+  
+  enabled     Boolean  @default(true)
+  lastRun     DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([dealId])
+  @@index([enabled])
+}
+
+model CRMIntegration {
+  id          String   @id @default(cuid())
+  type        String   // airtable, notion, hubspot
+  config      String   // encrypted API keys and settings JSON string
+  lastSync    DateTime?
+  status      String   @default("inactive")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
