@@ -97,6 +97,8 @@ export interface AuthState {
   login: (email: string, password: string) => Promise<void>;
   register: (email: string, password: string, name?: string) => Promise<void>;
   logout: () => void;
+  setUser: (user: User | null) => void;
+  setToken: (token: string | null) => void;
 }
 
 export interface DealState {

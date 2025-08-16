@@ -15,7 +15,8 @@ export default function HomePage() {
       setUser({
         id: 'personal-user',
         email: 'user@personal.com',
-        name: 'Personal User'
+        name: 'Personal User',
+        role: 'USER'
       });
       setToken('personal-session-token');
     }
