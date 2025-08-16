@@ -12,6 +12,11 @@
     "start:frontend": "cd frontend && npm start",
     "start:backend": "cd backend && npm start"
   },
+  "dependencies": {
+    "next": "15.4.6",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
   "devDependencies": {
     "concurrently": "^8.2.2"
   }
