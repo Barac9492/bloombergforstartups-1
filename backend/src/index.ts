@@ -11,6 +11,8 @@ import authRoutes from './routes/auth.routes';
 import dealRoutes from './routes/deal.routes';
 import sentimentRoutes from './routes/sentiment.routes';
 import crmRoutes from './routes/crm.routes';
+import { marketRoutes } from './routes/market.routes';
+import { startupRoutes } from './routes/startup.routes';
 import { errorHandler } from './middleware/errorHandler';
 import { rateLimiter } from './middleware/rateLimiter';
 import { logger } from './utils/logger';
@@ -45,6 +47,8 @@ app.use('/api/auth', authRoutes);
 app.use('/api/deals', dealRoutes);
 app.use('/api/sentiment', sentimentRoutes);
 app.use('/api/crm', crmRoutes);
+app.use('/api/market', marketRoutes);
+app.use('/api/startups', startupRoutes);
 
 // Health check
 app.get('/health', (_req, res) => {

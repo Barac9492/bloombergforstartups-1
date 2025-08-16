@@ -11,12 +11,16 @@ import {
   Database,
   TrendingUp,
   Bell,
-  LogOut
+  LogOut,
+  Terminal,
+  Search
 } from 'lucide-react';
 import { useAuthStore } from '@/lib/stores/auth';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: BarChart3 },
+  { name: 'Terminal', href: '/terminal', icon: Terminal },
+  { name: 'Screener', href: '/screener', icon: Search },
   { name: 'Pipeline', href: '/pipeline', icon: Kanban },
   { name: 'Sentiment', href: '/sentiment', icon: TrendingUp },
   { name: 'CRM Sync', href: '/crm', icon: Database },
