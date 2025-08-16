@@ -19,10 +19,19 @@ The frontend Next.js application can be deployed to Vercel.
 
 ### Vercel Settings
 
-- **Build Command**: `npm run build`
+- **Build Command**: `cd frontend && npm install && npm run build`
 - **Output Directory**: `frontend/.next`
-- **Install Command**: `npm install`
+- **Install Command**: `cd frontend && npm install`
 - **Framework**: Next.js
+
+### Alternative: Manual Vercel Configuration
+
+If the vercel.json doesn't work properly, configure manually in Vercel dashboard:
+
+1. **Root Directory**: Leave empty (deploy from root)
+2. **Build Command**: `cd frontend && npm install && npm run build`
+3. **Output Directory**: `frontend/.next`
+4. **Install Command**: `cd frontend && npm install`
 
 ## Backend Deployment (Heroku/Railway/etc.)
 
